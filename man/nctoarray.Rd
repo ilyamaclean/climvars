@@ -23,11 +23,13 @@ a three-dimensional array of the specified variable, permuted to dimension order
 containing data from a .nc file.
 }
 \examples{
-to follow once there is an nc file in data
-# ========= Create nc file of random data ============================= #
-longs <- ncdim_def(name="lon", units = "degrees_east", vals = seq(1,10,1),longname="longitude")
-lats <- ncdim_def(name="lat",  units = "degrees_north",vals=seq(1,10,1),longname="latitude")
-times <- ncdim_def(name="time",units="hours since 1983-01-01 00:00:00", vals=c(101:110))
+# ========= Create nc file of random data and save to disk ============= #
+longs <- ncdim_def(name="lon", units = "degrees_east",
+                   vals = seq(1,10,1),longname="longitude")
+lats <- ncdim_def(name="lat",  units = "degrees_north",vals=seq(1,10,1),
+                  longname="latitude")
+times <- ncdim_def(name="time",units="hours since 1983-01-01 00:00:00",
+                   vals=c(101:110))
 mydata <-ncvar_def(name="Random data", units="mm", dim = list(longs, lats, times))
 ncnew <- nc_create(filename="Random.nc", mydata)
 ncvar_put(ncnew, mydata, vals = array(rnorm(10000), dim = c(10,10,10)))
@@ -35,5 +37,5 @@ nc_close(ncnew)
 
 # ========= Read in as array ============================= #
 arr <- nctoarray("Random.nc", varid = "Random data")
-
+dim(arr)
 }

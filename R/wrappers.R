@@ -9,7 +9,7 @@
 #'@param merid an optional numeric value representing the longitude (decimal degrees) of the local time zone meridian (0 for GMT). Default is 0.
 #'@param dst an optional numeric value representing the time difference from the timezone meridian (hours, e.g. +1 for BST if merid = 0).
 #'
-#'@return a numeric value of the proportion of direct beam radiation incident at the specified latitude and longitude.
+#'@return a numeric value of the proportion of direct beam radiation on a horizontal surface at the specified latitude and longitude.
 #'@export
 #'
 #'@seealso the microclima function `julday` can be used to derive `julian`.

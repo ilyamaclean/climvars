@@ -20,7 +20,7 @@ sisimple(localtime, lat, long, julian, merid = 0, dst = 0)
 \item{locatime}{local time (decimal hour, 24 hour clock).}
 }
 \value{
-a numeric value of the proportion of direct beam radiation incident at the specified latitude and longitude.
+a numeric value of the proportion of direct beam radiation on a horizontal surface at the specified latitude and longitude.
 }
 \description{
 Calculates the proportion of direct beam radiation incident on an inclined surface at a specified time and location.
