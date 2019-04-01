@@ -1,0 +1,30 @@
+Package: climvars
+Type: Package
+Title: Functions for calculating biologically meaningful climate variables
+Version: 0.1.0
+Author: c(
+    person("Ilya", "Maclean", email = "i.m.d.maclean@exeter.ac.uk", role = "cre"),
+    person("Alexandra", "Gardner", email = "asg209@exeter.ac.uk", role = "aut"))
+Maintainer: The package maintainer <i.m.d.maclean@exeter.ac.ukt>
+Description: The functions in the climvars package contain tools for 
+    calculating climate variables  for application in biological research.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Remotes: ilyamaclean/microclima
+Imports:
+    raster (>= 2.5.8),
+    sp (>= 1.2),
+    ncdf4 (>= 1.16),
+    zoo,
+    microclima
+RoxygenNote: 6.1.0
+Roxygen: list(markdown = TRUE) 
+Suggests:
+    devtools,
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+URL: https://github.com/ilyamaclean/climvars
+BugReports: http://github.com/climvars/issues
