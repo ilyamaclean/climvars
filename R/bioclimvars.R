@@ -1208,4 +1208,5 @@ bio19 <- function(temps, prec, tme1, tme2, method = "") {
   }
   pcld
 }
+#delete me
 
