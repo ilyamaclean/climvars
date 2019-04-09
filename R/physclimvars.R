@@ -416,7 +416,7 @@ gsmax <- function(temp, gseason) {
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
 #'@examples
-#'temp <-
+#'temp <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(73,144,1460))
 #'m <- matrix(1, 73, 144)
 #'r <- raster(m, crs="+init=epsg:4326")
 #'extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
@@ -460,7 +460,7 @@ mst <- function(temp, year, startday = 152, endday = 243, r) {
 #'
 #'@description `ssm` calculates average soil moisture content over the summer period.
 #'
-#'@param soilm a three dimensional array of soil moisture values.
+#'@param soilm a three dimensional array of soil moisture values for one year.
 #'@param year calendar year.
 #'@param startday assumed day of year of start of summer in northen hemisphere in non-leap year.
 #'@param endday assumed end of summer. Defaults are 1st June to 31st Aug.
@@ -475,6 +475,16 @@ mst <- function(temp, year, startday = 152, endday = 243, r) {
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
 #'@examples
+#'soilm <- array(runif(1460, 0, 65), dim= c(73,144,1460))
+#'m <- matrix(1, 73, 144)
+#'r <- raster(m, crs="+init=epsg:4326")
+#'extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
+#'enorth<-extent(-1.25,358.75,0,91.25)
+#'esouth<-extent(-1.25,358.75,-91.25,0)
+#'rn<-crop(r,enorth) * 0 + 1
+#'rs<-crop(r,esouth) * 0
+#'r<-mosaic(rn,rs,fun=mean)
+#'ssm(soilm, 2010, startday = 152, endday = 243, r)
 #'
 ssm <- function(soilm, year, startday = 152, endday = 243, r) {
   lpfun <- function(year) {
@@ -510,7 +520,7 @@ ssm <- function(soilm, year, startday = 152, endday = 243, r) {
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-#'@param gs array of growing binary values indicating growing (1) or non-growing (0) season.
+#'@param gs array of growing binary values indicating growing (1) or non-growing (0) season for one year.
 #'@param sm array of soil moisture values for one year.
 #'
 #'@import raster
@@ -527,10 +537,16 @@ ssm <- function(soilm, year, startday = 152, endday = 243, r) {
 #'@seealso Requires that function [gssm()] is also loaded.
 #'
 #'@examples
+#'require(microclima)
+#'tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")
+#'gs <- gseason_day(tme, 6, 21)
+#'gseason <- matrix(gs, dim=c(1, 1, 1460))
+#'soilm <- array(runif(1460, 0, 100), dim= c(1,1,1460))
+#'gseason_soilmoist(2010, 2010, gs, soilm)
 #'
-gseason_soilmoist <- function(startyear, endyear, gs, sm) {
+gseason_soilmoist <- function(startyear, endyear, gs, sm){
   dim3 <- endyear - startyear + 1
-  ysoil <- array(NA, dim = c(dim(gs)[1:2], dim3))
+  ysoil <- array(NA, dim = c(dim(sm)[1:2], dim3))
   i <- 1
   for (year in startyear:endyear) {
     print(year)
@@ -562,7 +578,6 @@ gseason_soilmoist <- function(startyear, endyear, gs, sm) {
 #'@seealso [mtoraster()] to convert output matrix to a raster.
 #'@seealso [nctarray()] to create an array from nc file.
 #'
-#'@examples
 #'
 gseastemp <- function(startyear, endyear, temp, gseason) {
   dim3 <- endyear - startyear + 1
@@ -597,8 +612,6 @@ gseastemp <- function(startyear, endyear, temp, gseason) {
 #'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 #'@seealso [mtoraster()] to convert output matrix to a raster.
 #'@seealso [nctarray()] to create an array from an nc file.
-#'
-#'@examples
 #'
 gseasprec <- function(startyear, endyear, precip, gseason) {
   dim3 <- endyear - startyear + 1
@@ -635,8 +648,6 @@ gseasprec <- function(startyear, endyear, precip, gseason) {
 #'@seealso Requires function [tsp()] to be loaded.
 #'@seealso [mtoraster()] to convert output matrix to a raster.
 #'@seealso [nctarray()] to create an array from an nc file.
-#'
-#'@examples
 #'
 summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 243) {
   dim3 <- endyear - startyear + 1
@@ -679,8 +690,6 @@ summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 
 #'@seealso [nctarray()] to create array from an nc file.
 #'@seealso Requires function `gsl` to be loaded.
 #'
-#'@examples
-#'
 gseasonlength <- function(startyear, endyear, gseason)  {
   dim3 <- endyear - startyear + 1
   styear <- array(NA, dim = c(dim(gseason)[1:2], dim3))
@@ -713,8 +722,6 @@ gseasonlength <- function(startyear, endyear, gseason)  {
 #'@seealso [mtoraster()] to convert a matrix to a raster object.
 #'@seealso [nctarray()] to create array of temperature values from an nc file.
 #'@seealso Requires function [gsmax()] to be loaded.
-#'
-#'@examples
 #'
 maxgstemp <- function(startyear, endyear, temp, gs) {
   dim3 <- endyear - startyear + 1
@@ -755,8 +762,6 @@ maxgstemp <- function(startyear, endyear, temp, gs) {
 #'@seealso [mtoraster()]
 #'@seealso [nctarray()] to create array of temperature values from an nc file.
 #'@seealso Requires function [mst()] to be loaded.
-#'
-#'@examples
 #'
 summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243) {
   dim3 <- endyear - startyear + 1
@@ -804,9 +809,7 @@ summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243)
 #'@seealso [nctoarray()] to create array of temperature values from an nc file.
 #'@seealso Requires function [ssm()] to be loaded.
 #'
-#'@examples
-#'
-summersoilmoist <- function(startyear, endyear, soilnc, fi, startday = 152, endday = 243, msk, fo) {
+summersoilmoist <- function(startyear, endyear, soilnc, fi, startday = 152, endday = 243) {
   dim3 <- endyear - startyear + 1
   styear <- array(NA, dim = c(73, 144, dim3))
   r<-raster(soilnc)
@@ -827,3 +830,5 @@ summersoilmoist <- function(startyear, endyear, soilnc, fi, startday = 152, endd
   meanmoist<-apply(styear,c(1,2),mean,na.rm=T)
   meanmoist
 }
+
+
