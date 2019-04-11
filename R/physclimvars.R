@@ -1,6 +1,6 @@
 #'gseason_prec: Calculates the growing season period as determined by precipitation and evapotranspiration balance
 #'
-#'@description 'gseason_prec' calculates growing season period where precipitation exceeds half the potential evapotranspiration.
+#'@description `gseason_prec` calculates growing season period where precipitation exceeds half the potential evapotranspiration.
 #'
 #'@param prec a vector of precipitation values.
 #'@param evap a vector of evapotranspiration values.
@@ -19,12 +19,12 @@
 #'Requires wrapper functions `submonthly` and `cumsumseq` to be loaded.
 #'
 #'@seealso the [tmecreate()] function can be used to create a POSIXlt object.
-#'@seealso `submonthly`
-#'@seealso `cumsumseq`
+#'@seealso [submonthly()]
+#'@seealso [cumsumseq()]
 #'
 #'@examples
-#'prec <- 10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 50
-#'evap <- 10 * sin(c(0:364) * (pi / +360)) + rnorm(365) + 80
+#'prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 15)
+#'evap <- (10 * sin(c(0:364) * (pi / +360)) + rnorm(365) + 2)
 #'tme <- tmecreate(2010, 24)
 #'gsp <- gseason_prec(prec, evap, tme, period = "monthly", surplus = TRUE)
 #'gsp <- gseason_prec(prec, evap, tme, period = "bimonthly", surplus = TRUE)
@@ -76,7 +76,7 @@ gseason_prec <- function(prec, evap, tme, period = "monthly", surplus = TRUE) {
 }
 #'gseason_temp: Calculates the growing season period as determined by temperature values
 #'
-#'@description 'gseason_temp' calculates growing season period where temperatures are above 'lower' and below 'upper' specified limits.
+#'@description `gseason_temp` calculates growing season period where temperatures are above 'lower' and below 'upper' specified limits.
 #'
 #'@param temp a vector of temperature values.
 #'@param tme a `POSIXlt` object representing the date and time of each `temps` value.
@@ -89,12 +89,13 @@ gseason_prec <- function(prec, evap, tme, period = "monthly", surplus = TRUE) {
 #'
 #'@details To satisfy the requirements for `tme`, a POSIXlt object can be created using the `tmecreate` wrapper function.
 #'
-#'@seealso `tmecreate` can be used to create a POSIXlt object.
+#'@seealso [tmecreate()] can be used to create a POSIXlt object.
 #'
 #'@examples
 #'temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #'tme <- tmecreate(2010, 6)
 #'gseast <- gseason_temp(temps, tme)
+#'plot(gseast)
 #'
 gseason_temp <- function(temp, tme, lower = 5, upper = 35, nday = 5) {
   dint <- (as.numeric(tme[2]) - as.numeric(tme[1])) * 24 / 3600
@@ -128,7 +129,7 @@ gseason_temp <- function(temp, tme, lower = 5, upper = 35, nday = 5) {
 #'@examples
 #'Daytime hours in Porthleven, Cornwall for 2010.
 #'tme <- tmecreate(2010, 1)
-#'gseason_day(tme, 6, 21)
+#'gseason_day(tme, 50.08, -5.31)
 #'
 gseason_day <- function(tme, lat, long, merid = 0, dst =0) {
   jd <- julday(tme$year + 1900, tme$mon + 1, tme$mday)
@@ -139,7 +140,7 @@ gseason_day <- function(tme, lat, long, merid = 0, dst =0) {
 }
 #'gseason: Calculates the period where plant growth is possible
 #'
-#'@description Calculates total annual growing hours where temperatures are within defined upper and lower limits and precipitation exceeds half potential evapotranspiration.
+#'@description `gseason` calculates total annual growing hours where temperatures are within defined upper and lower limits and precipitation exceeds half potential evapotranspiration.
 #'
 #'@param year calendar year.
 #'@param precipnc nc file containing precipitation values.
@@ -153,29 +154,25 @@ gseason_day <- function(tme, lat, long, merid = 0, dst =0) {
 #'@param daynight if TRUE, growing season is continuous over 24 hours, if FALSE, only calculates growing season during the day.
 #'@param merid an optional numeric value representing the longitude (decimal degrees) of the local time zone meridian (0 for GMT). Default is 0.
 #'@param dst an optional numeric value representing the time difference from the timezone meridian (hours, e.g. +1 for BST if merid = 0). Default is 0.
-#'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo1 character string indicating the name and file path of the .tif file to be saved.
-#'@param fo2 character string indicating the name and file path of the .nc file to be saved.
 #'
 #'@import ncdf4
 #'@import raster
 #'@importFrom microclima latlongfromraster
 #'
-#'@return a .tif file of growing season length and a .nc file containing a three dimensional array of binary values indicating growing conditions (1) = yes, (0) = no.
+#'@return a three dimensional array of binary values indicating growing conditions (1) = yes, (0) = no.
 #'@export
 #'
 #'@details
 #'The growing season period is defined as the period where temperatures are >5 degree Celcius and <35 degree Celcius and precipitation > 0.5 PET.
 #'
-#'@seealso `gseason_prec` calculates period where precipitation exceeds half evapotranspiration.
-#'@seealso `gseason_temp` calculates period where temperature are above lower limit for plant growth and below upper limit for plant growth.
-#'@seealso `gseason_day` calculates day/night time.
-#'@seealso `tmecreate` can be used to create a POSIXlt object.
-#'@seealso `nctoarray` creates an array containing data within an nc file
-#'@seealso `mtoraster` converts matrix to raster object
+#'@seealso [gseason_prec()] calculates period where precipitation exceeds half evapotranspiration.
+#'@seealso [gseason_temp()] calculates period where temperature are above lower limit for plant growth and below upper limit for plant growth.
+#'@seealso [gseason_day()] calculates day/night time.
+#'@seealso [tmecreate()] can be used to create a POSIXlt object.
+#'@seealso [nctoarray()] can be used to create an nc file from array output.
 #'
 gseason <- function(year, precipnc, evapnc, tempnc, period = "monthly", surplus = TRUE, lower = 5,
-                    upper = 35, nday = 1/24, daynight = TRUE, merid = 0, msk = NA, dst = 0, fo1, fo2) {
+                    upper = 35, nday = 1/24, daynight = TRUE, merid = 0, dst = 0) {
   prec <- nctoarray(precipnc)
   evap <- nctoarray(evapnc)
   temp <- nctoarray(tempnc)
@@ -194,15 +191,9 @@ gseason <- function(year, precipnc, evapnc, tempnc, period = "monthly", surplus 
       gtemp <- gseason_temp(temp[x,y,], tme, lower, upper, nday)
       if (daynight) gdn <- gseason_day(tme, lats[x,y], lons[x,y], merid, dst)
       gshourly[x,y,] <- gprec * gtemp * gdn
+      gshourly
     }
   }
-  gslength <- apply(gshourly,c(1,2), sum) / 24
-  lsea <- getValues(msk, format = "matrix")
-  rlength <- mtoraster(gslength, mask = lsea)
-  plot(rlength, main = year)
-  writeRaster(rlength,file = fo1, overwrite = T)
-  arraytonc(gshourly, fo2, "Growing conditions", "1 = Yes, 0 = No", rlength, tme, baseyear = 1900)
-  gc()
 }
 #'events: determines the number of events
 #'
@@ -232,9 +223,10 @@ events <- function(x) {
 #'@return a matrix of mean soil moisture values during the growing season.
 #'@export
 #'
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 #'
 #'@examples
+#'require(microclima)
 #'tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")
 #'gs <- gseason_day(tme, 6, 21)
 #'gseason <- array(gs, dim=c(1, 1, 1460))
@@ -257,7 +249,7 @@ gssm <- function(gseason, soilm) {
 #'@return a matrix of mean air temperature during the growing season.
 #'@export
 #'
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 #'
 #'@examples
 #'tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")
@@ -281,7 +273,7 @@ gst <- function(temp, gseason) {
 #'@return a matrix of values of total precipitation during the growing season.
 #'@export
 #'
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 #'
 #'@examples
 #'prec <- array(10 * sin(c(0:1459) * (pi / -1400)) + runif(1460, 0, 10) +10, dim=c(1,1,1460))
@@ -313,7 +305,7 @@ gsp <- function(prec, gseason) {
 #'In leap years, 1 day is added.
 #'
 #'@examples
-#'prec <- array(10 * sin(c(0:1459) * (pi / -1400)) + runif(1460, 0, 10) +10, dim=c(1,1,1460))
+#'prec <- array(10 * sin(c(0:1459) * (pi / -1400)) + runif(1460, 0, 10) +10, dim=c(73,144,1460))
 #'m <- matrix(1, 73, 144)
 #'r <- raster(m, crs="+init=epsg:4326")
 #'extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
@@ -389,7 +381,7 @@ gsl <- function(gseason, year) {
 #'@return a matrix of values of maximum growing season temperatures.
 #'@export
 #'
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 #'
 #'@examples
 #'temp <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(73,144,1460))
@@ -423,6 +415,18 @@ gsmax <- function(temp, gseason) {
 #'Seasons are flipped in the southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
+#'@examples
+#'temp <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(73,144,1460))
+#'m <- matrix(1, 73, 144)
+#'r <- raster(m, crs="+init=epsg:4326")
+#'extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
+#'enorth<-extent(-1.25,358.75,0,91.25)
+#'esouth<-extent(-1.25,358.75,-91.25,0)
+#'rn<-crop(r,enorth) * 0 + 1
+#'rs<-crop(r,esouth) * 0
+#'r<-mosaic(rn,rs,fun=mean)
+#'mst(temp, 2010, startday = 152, endday = 243, r)
+#'
 mst <- function(temp, year, startday = 152, endday = 243, r) {
   lpfun <- function(year) {
     diy <- ifelse(year%%4 == 0, 366, 365)
@@ -454,9 +458,9 @@ mst <- function(temp, year, startday = 152, endday = 243, r) {
 }
 #'ssm: Summer soil moisture content
 #'
-#'@description Calculates average soil moisture content over the summer period.
+#'@description `ssm` calculates average soil moisture content over the summer period.
 #'
-#'@param soilm a three dimensional array of soil moisture values.
+#'@param soilm a three dimensional array of soil moisture values for one year.
 #'@param year calendar year.
 #'@param startday assumed day of year of start of summer in northen hemisphere in non-leap year.
 #'@param endday assumed end of summer. Defaults are 1st June to 31st Aug.
@@ -470,6 +474,17 @@ mst <- function(temp, year, startday = 152, endday = 243, r) {
 #'@details Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
+#'@examples
+#'soilm <- array(runif(1460, 0, 65), dim= c(73,144,1460))
+#'m <- matrix(1, 73, 144)
+#'r <- raster(m, crs="+init=epsg:4326")
+#'extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
+#'enorth<-extent(-1.25,358.75,0,91.25)
+#'esouth<-extent(-1.25,358.75,-91.25,0)
+#'rn<-crop(r,enorth) * 0 + 1
+#'rs<-crop(r,esouth) * 0
+#'r<-mosaic(rn,rs,fun=mean)
+#'ssm(soilm, 2010, startday = 152, endday = 243, r)
 #'
 ssm <- function(soilm, year, startday = 152, endday = 243, r) {
   lpfun <- function(year) {
@@ -505,39 +520,41 @@ ssm <- function(soilm, year, startday = 152, endday = 243, r) {
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-#'@param gs array of growing binary values indicating growing (1) or non-growing (0) season.
+#'@param gs array of growing binary values indicating growing (1) or non-growing (0) season for one year.
 #'@param sm array of soil moisture values for one year.
-#'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return A raster object of growing season soil moisture values exported as .tif file.
+#'@return A matrix of mean growing season soil moisture values over specified years.
 #'@export
 #'
-#'@details Function has been designed to run with raster data of dimensions 73 x 144.
+#'@details
 #'
-#'@seealso Requires function `gssm` to be loaded.
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
-#'@seealso mtoraster.
-#'@seealso Requires that function 'gssm' is also loaded.
+#'@seealso Requires function [gssm()] to be loaded.
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso [mtoraster()]
+#'@seealso Requires that function [gssm()] is also loaded.
 #'
-gseason_soilmoist <- function(startyear, endyear, ga, sm, msk, fo) {
+#'@examples
+#'require(microclima)
+#'tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")
+#'gs <- gseason_day(tme, 6, 21)
+#'gseason <- matrix(gs, dim=c(1, 1, 1460))
+#'soilm <- array(runif(1460, 0, 100), dim= c(1,1,1460))
+#'gseason_soilmoist(2010, 2010, gs, soilm)
+#'
+gseason_soilmoist <- function(startyear, endyear, gs, sm){
   dim3 <- endyear - startyear + 1
-  ysoil <- array(NA, dim = c(73, 144, dim3))
+  ysoil <- array(NA, dim = c(dim(sm)[1:2], dim3))
   i <- 1
   for (year in startyear:endyear) {
     print(year)
-    ysoil[,,i] <- gssm(ga, sm)
+    ysoil[,,i] <- gssm(gs, sm)
     i <- i +1
   }
   soilm <- apply(ysoil, c(1,2), mean, na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  soilr <- mtoraster(soilm, mask = lsea)
-  plot(soilr, main = "Growing season soil moisture")
-  writeRaster(soilr,file = fo, overwrite = T)
-  gc()
+  soilm
 }
 #'gseastemp: Mean temperature during the growing season
 #'
@@ -545,42 +562,34 @@ gseason_soilmoist <- function(startyear, endyear, ga, sm, msk, fo) {
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-#'@param tempnc nc file containing temperature values for one year.
-#'@param gsnc nc file containing binary values indicating growing (1) or non-growing (0) season for one year.
-#'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
+#'@param temp array of temperature values for one year.
+#'@param gseason array of binary values indicating growing (1) or non-growing (0) season for one year.
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return A raster object of mean growing season temperature values exported as .tif file.
+#'@return A matrix of mean growing season temperature values over the specified years.
 #'@export
 #'
-#'@details Function has been designed to run with raster data of dimensions 73 x 144.
+#'@details
 #'
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
-#'@seealso Requires function `gst` to be loaded.
-#'@seealso mtoraster
-#'@seealso nctarray
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso Requires function [gst()] to be loaded.
+#'@seealso [mtoraster()] to convert output matrix to a raster.
+#'@seealso [nctarray()] to create an array from nc file.
 #'
-gseastemp <- function(startyear, endyear, tempnc, gsnc, msk, fo) {
+#'
+gseastemp <- function(startyear, endyear, temp, gseason) {
   dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(73, 144, dim3))
+  styear <- array(NA, dim = c(dim(temp)[1:2], dim3))
   i <- 1
   for (year in startyear:endyear) {
     print(year)
-    temp <- nctoarray(tempnc)
-    gseason <- nctoarray(gsnc)
     styear[,,i] <- gst(temp, gseason)
     i <- i+1
   }
   gstemp<-apply(styear,c(1,2),mean,na.rm=T)
-  gstemp<-ifelse(is.na(gstemp)==TRUE, 0, gstemp)
-  lsea <- getValues(msk, format = "matrix")
-  gstempr <- mtoraster(gstemp, mask = lsea)
-  plot(gstempr, main = "Mean daily growing season air temperature")
-  writeRaster(gstempr, file = fo, overwrite = T)
-  gc()
+  gstemp
 }
 #'gseasonprecip: Total precipitation during the growing season
 #'
@@ -590,25 +599,23 @@ gseastemp <- function(startyear, endyear, tempnc, gsnc, msk, fo) {
 #'@param endyear latest calender year to be considered in calculations.
 #'@param precip 3-dimensional array of precipitation values.
 #'@param gseason 3-dimensional array of values indicating growing season (1) or non-growing season (0).
-#'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return A raster object of values of total precipitation during the growing season exported as a .tif file.
+#'@return A matrix of mean total precipitation values during the growing season over the specified years.
 #'@export
 #'
-#'@details Function has been designed to run with raster data of dimensions 73 x 144.
+#'@details
 #'
 #'@seealso Requires function `gsp` to be loaded.
 #'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
-#'@seealso nctoarray
-#'@seealso mtoraster
+#'@seealso [mtoraster()] to convert output matrix to a raster.
+#'@seealso [nctarray()] to create an array from an nc file.
 #'
-gseasprec <- function(startyear, endyear, precip, gseason, msk, fo) {
+gseasprec <- function(startyear, endyear, precip, gseason) {
   dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(73, 144, dim3))
+  styear <- array(NA, dim = c(dim(precip)[1:2], dim3))
   i <- 1
   for (year in startyear:endyear) {
     print(year)
@@ -616,11 +623,7 @@ gseasprec <- function(startyear, endyear, precip, gseason, msk, fo) {
     i <- i+1
   }
   gsprec<-apply(styear,c(1,2),mean,na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  gprecr <- mtoraster(gsprec, mask = lsea)
-  plot(gprecr, main = "Total growing season rainfall")
-  writeRaster(gprecr,file = fo, overwrite = T)
-  gc()
+  gsprec
 }
 #'summerprecip: Total Summer precipitation
 #'
@@ -631,24 +634,22 @@ gseasprec <- function(startyear, endyear, precip, gseason, msk, fo) {
 #'@param precipnc full path name of nc file containing precipitation values  and with data extent: -1.25, 358.75, -91.25, 91.25 when converted to raster format.
 #'@param startday assumed day of year of start of summer in northen hemisphere in non-leap year* (default 1st June).
 #'@param endday assumed day of year of end of summer in northen hemisphere in non-leap year* (default 31st Aug).
-#'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'. Same extent as precipnc.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return A raster object of growing degree days above 10 degrees Celcius during the growing season exported as a .tif file.
+#'@return A matrix of mean growing degree days above 10 degrees Celcius during the growing season over the specified years.
 #'@export
 #'
 #'@details Function has been designed to run with raster data of dimensions 73 x 144.
 #'Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
-#'@seealso Requires function `tsp` to be loaded.
-#'@seealso `nctoarray`
-#'@seealso `mtoraster`
+#'@seealso Requires function [tsp()] to be loaded.
+#'@seealso [mtoraster()] to convert output matrix to a raster.
+#'@seealso [nctarray()] to create an array from an nc file.
 #'
-summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 243, msk, fo) {
+summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 243) {
   dim3 <- endyear - startyear + 1
   styear <- array(NA, dim = c(73, 144, dim3))
   r<-raster(precipnc)
@@ -666,11 +667,7 @@ summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 
     i <- i +1
   }
   sumprec<-apply(styear,c(1,2),mean,na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  sprecr <- mtoraster(sumprec, mask = lsea)
-  plot(sprecr, main = "Total summer rainfall")
-  writeRaster(sprecr,file = fo, overwrite = T)
-  gc()
+  sumprec
 }
 #'gseasonlength: Growing season length
 #'
@@ -678,39 +675,32 @@ summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-#'@param gsnc full path name of nc file containing growing season values for each year (1 = growing season, 0 = non-growing season).
-#'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
+#'@param gseason a 3-dimensional array of growing season values for each year (1 = growing season, 0 = non-growing season).
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return A raster object of values of growing season length (number of days) exported as a .tif file
+#'@return A matrix of mean growing season length (number of days) over specified years.
 #'@export
 #'
-#'@details Function has been designed to run with raster data of dimensions 73 x 144.
+#'@details
 #'
-#'@seealso the `gseason` function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
-#'@seealso `mtoraster` to convert a matrix to a raster object.
-#'@seealso `nctoarray` to create an array of growing season values from an nc file.
+#'@seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+#'@seealso [mtoraster()] to convert a matrix to a raster object.
+#'@seealso [nctarray()] to create array from an nc file.
 #'@seealso Requires function `gsl` to be loaded.
 #'
-gseasonlength <- function(startyear, endyear, gsnc, msk, fo)  {
+gseasonlength <- function(startyear, endyear, gseason)  {
   dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(73, 144, dim3))
+  styear <- array(NA, dim = c(dim(gseason)[1:2], dim3))
   i <- 1
   for (year in startyear:endyear) {
     print(year)
-    gseason <- nctoarray(gsnc)
     styear[,,1] <- gsl(gseason, year)
     i <- i +1
   }
   gsl <- apply(styear,c(1,2),mean,na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  gslr <- mtoraster(gsl, mask = lsea)
-  plot(gslr, main = "Growing season length")
-  writeRaster(gslr,file = fo, overwrite = T)
-  gc()
+  gsl
 }
 #'maxgstemp: Maximum temperature during the growing season
 #'
@@ -718,39 +708,32 @@ gseasonlength <- function(startyear, endyear, gsnc, msk, fo)  {
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-#'@param tempnc nc file containing temperature values for one year.
-#'@param gsnc nc file containing binary values indicating growing (1) or non-growing (0) season for one year.
-#'@param msk Optional raster object of land-sea mask with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
+#'@param temp a three-dimensional array of temperature values for one year.
+#'@param gs a three-dimensional array of binary values indicating growing (1) or non-growing (0) season for one year.
 #'
-#'@return A raster object of values of maximum growing season air temperature values exported as a .tif file.
+#'@return A matrix of mean maximum growing season air temperature values over the specified years.
 #'@export
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@details Function has been designed to run with raster data of dimensions 73 x 144.
+#'@details
 #'
-#'@seealso `mtoraster` to convert a matrix to a raster object.
-#'@seealso `nctoarray` to create an array of growing season values from an nc file.
-#'@seealso Requires function `gsmax` to be loaded.
+#'@seealso [mtoraster()] to convert a matrix to a raster object.
+#'@seealso [nctarray()] to create array of temperature values from an nc file.
+#'@seealso Requires function [gsmax()] to be loaded.
 #'
-maxgstemp <- function(startyear, endyear, tempnc, gsnc, msk, fo) {
+maxgstemp <- function(startyear, endyear, temp, gs) {
   dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(73, 144, dim3))
+  styear <- array(NA, dim = c(dim(temp)[1:2], dim3))
   i <- 1
   for (year in startyear:endyear) {
     print(year)
-    temp <- nctoarray(tempnc)
-    gseason <- nctoarray(gsnc)
-    styear[,,i] <- gsmax(temp, gseason)
+    styear[,,i] <- gsmax(temp, gs)
     i <- i+1
   }
   gsmax<-apply(styear,c(1,2),mean,na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  gsmaxr <- mtoraster(gsmax, mask = lsea)
-  plot(gsmaxr, main = "Maximum growing season temperature")
-  writeRaster(gsmaxr,file = fo, overwrite = T)
+  gsmax
 }
 #'summertemp: Mean summer temperature
 #'
@@ -765,25 +748,22 @@ maxgstemp <- function(startyear, endyear, tempnc, gsnc, msk, fo) {
 #'  hemisphere in non-leap year. Default, 1st June.
 #'@param endday Indicates assumed day of year of end of summer in northern
 #'  hemisphere in non-leap year. Default, 31st August.
-#'@param  msk Raster object of land-sea mask with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return a raster object of mean summer temperature exported as a .tif file.
+#'@return a matrix of mean summer temperature values over the specified years.
 #'@export
 #'
-#'@details
-#'Function has been designed to run with raster data of dimensions 73 x 144.
+#'@details Function has been designed to run with raster data of dimensions 73 x 144.
 #'Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
-#'@seealso `mtoraster`.
-#'@seealso `nctoarray` to create array of temperature values from an nc file.
-#'@seealso Requires function `mst` to be loaded.
+#'@seealso [mtoraster()]
+#'@seealso [nctarray()] to create array of temperature values from an nc file.
+#'@seealso Requires function [mst()] to be loaded.
 #'
-summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243, msk, fo) {
+summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243) {
   dim3 <- endyear - startyear + 1
   styear <- array(NA, dim = c(73, 144, dim3))
   i <- 1
@@ -800,11 +780,7 @@ summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243,
     i <- i +1
   }
   sumtemp<-apply(styear,c(1,2),mean,na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  stempr <- mtoraster(sumtemp, mask = lsea)
-  plot(stempr, main = "Mean summer temperature")
-  writeRaster(stempr,file = fo, overwrite = T)
-  gc()
+  sumtemp
 }
 #'summersoilmoist: Soil moisture content during summer
 #'
@@ -818,24 +794,22 @@ summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243,
 #'  hemisphere in non-leap year. Default, 1st June.
 #'@param endday indicates assumed day of year of end of summer in northern
 #'  hemisphere in non-leap year. Default, 31st August.
-#'@param msk raster object of land-sea mask with sea areas assigned 'NA' and land areas assigned value '1'.
-#'@param fo character string indicating the name and file path for the .tif file to be saved.
 #'
 #'@import raster
 #'@import ncdf4
 #'
-#'@return a raster object of mean summer soil moisture content exported as a .tif file.
+#'@return a matrix of mean summer soil moisture content values over the specified years.
 #'@export
 #'
 #'@details Function has been designed to run with raster data of dimensions 73 x 144.
 #'Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
 #'in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 #'
-#'@seealso `mtoraster`.
-#'@seealso `nctoarray` to create array of temperature values from an nc file.
-#'@seealso Requires function `ssm` to be loaded.
+#'@seealso [mtoraster()]
+#'@seealso [nctoarray()] to create array of temperature values from an nc file.
+#'@seealso Requires function [ssm()] to be loaded.
 #'
-summersoilmoist <- function(startyear, endyear, soilnc, fi, startday = 152, endday = 243, msk, fo) {
+summersoilmoist <- function(startyear, endyear, soilnc, fi, startday = 152, endday = 243) {
   dim3 <- endyear - startyear + 1
   styear <- array(NA, dim = c(73, 144, dim3))
   r<-raster(soilnc)
@@ -854,9 +828,7 @@ summersoilmoist <- function(startyear, endyear, soilnc, fi, startday = 152, endd
     i <- i +1
   }
   meanmoist<-apply(styear,c(1,2),mean,na.rm=T)
-  lsea <- getValues(msk, format = "matrix")
-  summmoistr <- mtoraster(meanmoist, mask = lsea)
-  plot(summmoistr, main = "Mean summer soil moisture content")
-  writeRaster(summmoistr,file = fo, overwrite = T)
-  gc()
+  meanmoist
 }
+
+

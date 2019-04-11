@@ -424,7 +424,7 @@ bio3 <- function(temps, tme, method = "") {
 #' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #' tme1 <- tmecreate(2010, 6)
 #' plot(temps~as.POSIXct(tme1), type = "l", xlab = "Month", ylab = "Temperature")
-#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme2 <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme2), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio8(temps, prec, tme1, tme2)
@@ -505,7 +505,7 @@ bio8 <- function(temps, prec, tme1, tme2, method = "") {
 #' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #' tme1 <- tmecreate(2010, 6)
 #' plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme2 <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme2), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio9(temps, prec, tme1, tme2)
@@ -688,9 +688,9 @@ bio11 <- function(temps, tme, method = "") {
 }
 # 'bio12: Calculates total annual precipitation
 #'
-# '@description `bio12` is used to calculate total precipitation in the year
+#' @description `bio12` is used to calculate total precipitation in the year
 #'
-# '@param prec a vector of precipitation values, normally for one year (see
+#' @param prec a vector of precipitation values, normally for one year (see
 #'  details).
 #' @param tme a `POSIXlt` object representing the date and time of each `temps` value.
 #' @param method An optional character string describing the method used to
@@ -707,7 +707,7 @@ bio11 <- function(temps, tme, method = "") {
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio12(prec, tme)
@@ -758,7 +758,7 @@ bio12 <- function(prec, tme, method = "") {
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio13(prec, tme, method="week")
@@ -815,7 +815,7 @@ bio13 <- function(prec, tme, method = "week") {
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio14(prec, tme)
@@ -879,7 +879,7 @@ bio14 <- function(prec, tme, method = "week") {
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio15(prec, tme, method="week")
@@ -930,7 +930,7 @@ bio15 <- function(prec, tme, method = "anuclim") {
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio16(prec, tme)
@@ -998,7 +998,7 @@ bio16 <- function(prec, tme, method = "") {
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' tme <- tmecreate(2010, 24)
 #' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 #' bio17(prec, tme)
@@ -1071,7 +1071,7 @@ bio17 <- function(prec, tme, method = "") {
 #' one year, calculations are performed on all data and single value returned.
 #'
 #' @examples
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 #' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #' tme1 <- tmecreate(2010, 6)
 #' tme2<- tmecreate(2010, 24)
@@ -1156,7 +1156,7 @@ bio18 <- function(temps, prec, tme1, tme2, method = "") {
 #'
 #' @examples
 #'
-#' prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+#' prec <- 10 * sin(c(0:364) * (pi / -360)) + (rnorm(365) + 12)
 #' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #' tme1 <- tmecreate(2010, 6)
 #' tme2<- tmecreate(2010, 24)
