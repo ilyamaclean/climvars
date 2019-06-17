@@ -1,6 +1,6 @@
 #'sisimple: Calculates the solar index
 #'
-#'@description Calculates the proportion of direct beam radiation incident on an inclined surface at a specified time and location.
+#'@description `sisimple` calculates the proportion of direct beam radiation incident on an inclined surface at a specified time and location.
 #'
 #'@param locatime local time (decimal hour, 24 hour clock).
 #'@param lat latitude of the location for which the solar index is required (decimal degrees, -ve south of the equator).
@@ -79,13 +79,14 @@ nctoarray <- function(filein, varid = NA) {
 #'@export
 #'
 #'@examples
-#'a <- array(rnorm(100), dim=c(94,192,1464))
-#'rin <- raster(a[,,1])
+#'originalarray <- array(rnorm(100), dim=c(94,192,1464))
+#'rin <- raster(originalarray[,,1])
 #'extent(rin) <- c(-0.9375, 359.0625, -89.49406, 89.49406)
 #'routm <- matrix(rnorm(10512), 73, 144)
 #'rout <- raster(routm)
 #'extent(rout) <- c(-1.25, 358.75, -91.25, 91.25)
 #'newarray <- resamplearray(a, rin, rout)
+#'dim(originalarray)
 #'dim(newarray)
 #'
 resamplearray <- function(a, rin, rout) {
@@ -145,10 +146,10 @@ tmecreate<- function(years, hourint = 6) {
 #'
 #'@seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
-#'temps <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(180,360,1460))
-#'r <- raster()
+#'mydata <- array(rnorm(1460), dim = c(2,2,1460))
+#'r <- raster(mydata[,,1])
 #'tme <- tmecreate(2010, 6)
-#'arraytonc (temps, "new.nc", varname = "6-hourly air temperature", units = "degrees Celcius", r, tme, baseyear = 1900)
+#'arraytonc (mydata, "new.nc", varname = "6-hourly air temperature", units = "degrees Celcius", r, tme, baseyear = 1900)
 #'
 arraytonc <- function(a, fileout, varname, units, r, tme, baseyear = 1900) {
   yrs <- c(baseyear:1969)
@@ -233,7 +234,6 @@ cumsumseq <- function(gs, ehour, div) {
   }
   gs
 }
-
 #'mtoraster: Convert a matrix to raster object
 #'
 #'@description `mtoraster` converts a matrix of global values to raster format.
@@ -250,6 +250,8 @@ cumsumseq <- function(gs, ehour, div) {
 #'@details the function is written for the conversion of matrices of dimensions 73 x 144.
 #'
 #'@examples
+#'m <- matrix(rnorm(0:72), 73, 144)
+#'r <- mtoraster(m)
 #'
 mtoraster <- function(m, centre = TRUE, mask = NA) {
   if (centre) {
