@@ -11,13 +11,13 @@ gseason_soilmoist(startyear, endyear, ga, sm, msk, fo)
 
 \item{endyear}{latest calender year to be considered in calculations.}
 
+\item{ga}{array of growing binary values indicating growing (1) or non-growing (0) season.}
+
 \item{sm}{array of soil moisture values for one year.}
 
 \item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.}
 
 \item{fo}{character string indicating the name and file path for the .tif file to be saved.}
-
-\item{gs}{array of growing binary values indicating growing (1) or non-growing (0) season.}
 }
 \value{
 A raster object of growing season soil moisture values exported as .tif file.

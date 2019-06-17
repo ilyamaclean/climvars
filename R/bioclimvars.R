@@ -686,11 +686,10 @@ bio11 <- function(temps, tme, method = "") {
   }
   tcold
 }
-# 'bio12: Calculates total annual precipitation
-#'
+#' bio12: Calculates total annual precipitation
 # '@description `bio12` is used to calculate total precipitation in the year
 #'
-# '@param prec a vector of precipitation values, normally for one year (see
+#' @param prec a vector of precipitation values, normally for one year (see
 #'  details).
 #' @param tme a `POSIXlt` object representing the date and time of each `temps` value.
 #' @param method An optional character string describing the method used to

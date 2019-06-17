@@ -30,7 +30,6 @@ To satisfy the requirements for \code{tme}, a POSIXlt object can be created usin
 temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 tme <- tmecreate(2010, 6)
 gseast <- gseason_temp(temps, tme)
-
 }
 \seealso{
 \code{tmecreate} can be used to create a POSIXlt object.

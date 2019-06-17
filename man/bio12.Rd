@@ -2,11 +2,14 @@
 % Please edit documentation in R/bioclimvars.R
 \name{bio12}
 \alias{bio12}
-\title{details).}
+\title{bio12: Calculates total annual precipitation}
 \usage{
 bio12(prec, tme, method = "")
 }
 \arguments{
+\item{prec}{a vector of precipitation values, normally for one year (see
+details).}
+
 \item{tme}{a \code{POSIXlt} object representing the date and time of each \code{temps} value.}
 
 \item{method}{An optional character string describing the method used to
@@ -17,7 +20,7 @@ details).}
 a single numeric value of total annual precipitation.
 }
 \description{
-details).
+bio12: Calculates total annual precipitation
 }
 \details{
 If method is "anuclim", monthly precipitation values are spline

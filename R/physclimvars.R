@@ -95,9 +95,8 @@ gseason_prec <- function(prec, evap, tme, period = "monthly", surplus = TRUE) {
 #'temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #'tme <- tmecreate(2010, 6)
 #'gseast <- gseason_temp(temps, tme)
-#'
 gseason_temp <- function(temp, tme, lower = 5, upper = 35, nday = 5) {
-  dint <- (as.numeric(tme[2]) - as.numeric(tme[1])) * 24 / 3600
+  dint <- (24 * 3600) / (as.numeric(tme[2]) - as.numeric(tme[1]))
   ma <- function(x, n = nday * dint)
   {
     filter(x, rep(1/n, n), sides = 2, circular = TRUE)
@@ -505,7 +504,7 @@ ssm <- function(soilm, year, startday = 152, endday = 243, r) {
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-#'@param gs array of growing binary values indicating growing (1) or non-growing (0) season.
+#'@param ga array of growing binary values indicating growing (1) or non-growing (0) season.
 #'@param sm array of soil moisture values for one year.
 #'@param msk optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.
 #'@param fo character string indicating the name and file path for the .tif file to be saved.
