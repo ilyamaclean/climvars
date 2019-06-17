@@ -20,7 +20,7 @@ details).}
 a single numeric value of total annual precipitation.
 }
 \description{
-bio12: Calculates total annual precipitation
+\code{bio12} is used to calculate total precipitation in the year
 }
 \details{
 If method is "anuclim", monthly precipitation values are spline
@@ -28,7 +28,7 @@ interpolated to a weekly time period and the total for each year returned.
 Otherwise, all precipitation values for each year are summed.
 }
 \examples{
-prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 tme <- tmecreate(2010, 24)
 plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 bio12(prec, tme)

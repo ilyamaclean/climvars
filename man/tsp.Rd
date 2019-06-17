@@ -26,7 +26,7 @@ Seasons are flipped in the southern hemisphere i.e. 1st June (day 152) = day 152
 In leap years, 1 day is added.
 }
 \examples{
-prec <- array(10 * sin(c(0:1459) * (pi / -1400)) + runif(1460, 0, 10) +10, dim=c(1,1,1460))
+prec <- array(10 * sin(c(0:1459) * (pi / -1400)) + runif(1460, 0, 10) +10, dim=c(73,144,1460))
 m <- matrix(1, 73, 144)
 r <- raster(m, crs="+init=epsg:4326")
 extent(r) <- c(-1.25, 358.75, -91.25, 91.25)

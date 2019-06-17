@@ -21,13 +21,14 @@ reformats data in an array and creates a new array objects to
 dimensions specified by \code{rin}.
 }
 \examples{
-a <- array(rnorm(100), dim=c(94,192,1464))
-rin <- raster(a[,,1])
+originalarray <- array(rnorm(100), dim=c(94,192,1464))
+rin <- raster(originalarray[,,1])
 extent(rin) <- c(-0.9375, 359.0625, -89.49406, 89.49406)
 routm <- matrix(rnorm(10512), 73, 144)
 rout <- raster(routm)
 extent(rout) <- c(-1.25, 358.75, -91.25, 91.25)
 newarray <- resamplearray(a, rin, rout)
+dim(originalarray)
 dim(newarray)
 
 }

@@ -18,6 +18,7 @@ a matrix of mean soil moisture values during the growing season.
 \code{gssm} calculates mean soil moisture content during the growing season period.
 }
 \examples{
+require(microclima)
 tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")
 gs <- gseason_day(tme, 6, 21)
 gseason <- array(gs, dim=c(1, 1, 1460))
@@ -26,5 +27,5 @@ gssm <- gssm(gseason, soilm)
 
 }
 \seealso{
-the \code{gseason} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+the \code{\link[=gseason]{gseason()}} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 }

@@ -26,7 +26,7 @@ a vector of binary values indicating day (1) or night (0).
 \examples{
 Daytime hours in Porthleven, Cornwall for 2010.
 tme <- tmecreate(2010, 1)
-gseason_day(tme, 6, 21)
+gseason_day(tme, 50.08, -5.31)
 
 }
 \seealso{

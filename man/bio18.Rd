@@ -40,7 +40,7 @@ and precipitation in the coldest quarter returned. If data span more than
 one year, calculations are performed on all data and single value returned.
 }
 \examples{
-prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 tme1 <- tmecreate(2010, 6)
 tme2<- tmecreate(2010, 24)

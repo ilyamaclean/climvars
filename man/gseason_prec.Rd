@@ -21,7 +21,7 @@ gseason_prec(prec, evap, tme, period = "monthly", surplus = TRUE)
 A vector of binary values, where 1 indicates growing season and 0 indicates not growing season.
 }
 \description{
-'gseason_prec' calculates growing season period where precipitation exceeds half the potential evapotranspiration.
+\code{gseason_prec} calculates growing season period where precipitation exceeds half the potential evapotranspiration.
 }
 \details{
 The growing season is defined as the period when precipitation exceeds half the potential evapotranspiration.
@@ -31,8 +31,8 @@ If surplus = 'TRUE', generates a vector of growing season values for the specifi
 Requires wrapper functions \code{submonthly} and \code{cumsumseq} to be loaded.
 }
 \examples{
-prec <- 10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 50
-evap <- 10 * sin(c(0:364) * (pi / +360)) + rnorm(365) + 80
+prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 15)
+evap <- (10 * sin(c(0:364) * (pi / +360)) + rnorm(365) + 2)
 tme <- tmecreate(2010, 24)
 gsp <- gseason_prec(prec, evap, tme, period = "monthly", surplus = TRUE)
 gsp <- gseason_prec(prec, evap, tme, period = "bimonthly", surplus = TRUE)
@@ -42,7 +42,7 @@ plot(gsp)
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.
 
-\code{submonthly}
+\code{\link[=submonthly]{submonthly()}}
 
-\code{cumsumseq}
+\code{\link[=cumsumseq]{cumsumseq()}}
 }

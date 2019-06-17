@@ -23,5 +23,7 @@ a raster object.
 the function is written for the conversion of matrices of dimensions 73 x 144.
 }
 \examples{
+m <- matrix(rnorm(0:72), 73, 144)
+r <- mtoraster(m)
 
 }

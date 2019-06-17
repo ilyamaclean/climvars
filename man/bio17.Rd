@@ -33,7 +33,7 @@ returned. If data span more than one year, calculations are performed on all
 data and single value returned.
 }
 \examples{
-prec <- (100 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 tme <- tmecreate(2010, 24)
 plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
 bio17(prec, tme)

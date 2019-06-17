@@ -5,7 +5,7 @@
 \title{summersoilmoist: Soil moisture content during summer}
 \usage{
 summersoilmoist(startyear, endyear, soilnc, fi, startday = 152,
-  endday = 243, msk, fo)
+  endday = 243)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
@@ -21,13 +21,9 @@ hemisphere in non-leap year. Default, 1st June.}
 
 \item{endday}{indicates assumed day of year of end of summer in northern
 hemisphere in non-leap year. Default, 31st August.}
-
-\item{msk}{raster object of land-sea mask with sea areas assigned 'NA' and land areas assigned value '1'.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
 }
 \value{
-a raster object of mean summer soil moisture content exported as a .tif file.
+a matrix of mean summer soil moisture content values over the specified years.
 }
 \description{
 Calculates mean soil moisture content during the 6-month summer period.
@@ -38,9 +34,9 @@ Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+36
 in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 }
 \seealso{
-\code{mtoraster}.
+\code{\link[=mtoraster]{mtoraster()}}
 
-\code{nctoarray} to create array of temperature values from an nc file.
+\code{\link[=nctoarray]{nctoarray()}} to create array of temperature values from an nc file.
 
-Requires function \code{ssm} to be loaded.
+Requires function \code{\link[=ssm]{ssm()}} to be loaded.
 }

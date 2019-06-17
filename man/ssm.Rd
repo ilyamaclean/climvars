@@ -7,7 +7,7 @@
 ssm(soilm, year, startday = 152, endday = 243, r)
 }
 \arguments{
-\item{soilm}{a three dimensional array of soil moisture values.}
+\item{soilm}{a three dimensional array of soil moisture values for one year.}
 
 \item{year}{calendar year.}
 
@@ -21,9 +21,22 @@ ssm(soilm, year, startday = 152, endday = 243, r)
 a matrix of mean summer soil moisture values.
 }
 \description{
-Calculates average soil moisture content over the summer period.
+\code{ssm} calculates average soil moisture content over the summer period.
 }
 \details{
 Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
 in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
+}
+\examples{
+soilm <- array(runif(1460, 0, 65), dim= c(73,144,1460))
+m <- matrix(1, 73, 144)
+r <- raster(m, crs="+init=epsg:4326")
+extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
+enorth<-extent(-1.25,358.75,0,91.25)
+esouth<-extent(-1.25,358.75,-91.25,0)
+rn<-crop(r,enorth) * 0 + 1
+rs<-crop(r,esouth) * 0
+r<-mosaic(rn,rs,fun=mean)
+ssm(soilm, 2010, startday = 152, endday = 243, r)
+
 }

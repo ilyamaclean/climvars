@@ -95,11 +95,8 @@ gseason_prec <- function(prec, evap, tme, period = "monthly", surplus = TRUE) {
 #'temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 #'tme <- tmecreate(2010, 6)
 #'gseast <- gseason_temp(temps, tme)
-<<<<<<< HEAD
-=======
 #'plot(gseast)
 #'
->>>>>>> e31377973d18f2e3fb5cdc21d0f8b9189eec8f8f
 gseason_temp <- function(temp, tme, lower = 5, upper = 35, nday = 5) {
   dint <- (24 * 3600) / (as.numeric(tme[2]) - as.numeric(tme[1]))
   ma <- function(x, n = nday * dint)
@@ -523,11 +520,8 @@ ssm <- function(soilm, year, startday = 152, endday = 243, r) {
 #'
 #'@param startyear earliest calender year to be considered in calculations.
 #'@param endyear latest calender year to be considered in calculations.
-<<<<<<< HEAD
 #'@param ga array of growing binary values indicating growing (1) or non-growing (0) season.
-=======
 #'@param gs array of growing binary values indicating growing (1) or non-growing (0) season for one year.
->>>>>>> e31377973d18f2e3fb5cdc21d0f8b9189eec8f8f
 #'@param sm array of soil moisture values for one year.
 #'
 #'@import raster

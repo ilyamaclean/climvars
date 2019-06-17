@@ -30,8 +30,8 @@ an object of class ncdf4 that has the fields described above and is saved to the
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.
 
-temps <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(180,360,1460))
-r <- raster()
+mydata <- array(rnorm(1460), dim = c(2,2,1460))
+r <- raster(mydata\link{,,1})
 tme <- tmecreate(2010, 6)
-arraytonc (temps, "new.nc", varname = "6-hourly air temperature", units = "degrees Celcius", r, tme, baseyear = 1900)
+arraytonc (mydata, "new.nc", varname = "6-hourly air temperature", units = "degrees Celcius", r, tme, baseyear = 1900)
 }

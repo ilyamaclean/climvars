@@ -4,34 +4,27 @@
 \alias{gseasonlength}
 \title{gseasonlength: Growing season length}
 \usage{
-gseasonlength(startyear, endyear, gsnc, msk, fo)
+gseasonlength(startyear, endyear, gseason)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
 
 \item{endyear}{latest calender year to be considered in calculations.}
 
-\item{gsnc}{full path name of nc file containing growing season values for each year (1 = growing season, 0 = non-growing season).}
-
-\item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
+\item{gseason}{a 3-dimensional array of growing season values for each year (1 = growing season, 0 = non-growing season).}
 }
 \value{
-A raster object of values of growing season length (number of days) exported as a .tif file
+A matrix of mean growing season length (number of days) over specified years.
 }
 \description{
 \code{gseasonlength} calculates the average length of the growing season period (in days) across specified years.
 }
-\details{
-Function has been designed to run with raster data of dimensions 73 x 144.
-}
 \seealso{
-the \code{gseason} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+the \code{\link[=gseason]{gseason()}} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 
-\code{mtoraster} to convert a matrix to a raster object.
+\code{\link[=mtoraster]{mtoraster()}} to convert a matrix to a raster object.
 
-\code{nctoarray} to create an array of growing season values from an nc file.
+\code{\link[=nctarray]{nctarray()}} to create array from an nc file.
 
 Requires function \code{gsl} to be loaded.
 }

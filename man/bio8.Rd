@@ -44,7 +44,7 @@ returned.
 temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 tme1 <- tmecreate(2010, 6)
 plot(temps~as.POSIXct(tme1), type = "l", xlab = "Month", ylab = "Temperature")
-prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 100)
+prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
 tme2 <- tmecreate(2010, 24)
 plot(prec~as.POSIXct(tme2), type = "l", xlab = "Month", ylab = "Precipitation")
 bio8(temps, prec, tme1, tme2)

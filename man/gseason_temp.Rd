@@ -21,7 +21,7 @@ gseason_temp(temp, tme, lower = 5, upper = 35, nday = 5)
 A time-series object of binary values, where 1 indicates growing season and 0 indicates not growing season.
 }
 \description{
-'gseason_temp' calculates growing season period where temperatures are above 'lower' and below 'upper' specified limits.
+\code{gseason_temp} calculates growing season period where temperatures are above 'lower' and below 'upper' specified limits.
 }
 \details{
 To satisfy the requirements for \code{tme}, a POSIXlt object can be created using the \code{tmecreate} wrapper function.
@@ -30,7 +30,9 @@ To satisfy the requirements for \code{tme}, a POSIXlt object can be created usin
 temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
 tme <- tmecreate(2010, 6)
 gseast <- gseason_temp(temps, tme)
+plot(gseast)
+
 }
 \seealso{
-\code{tmecreate} can be used to create a POSIXlt object.
+\code{\link[=tmecreate]{tmecreate()}} can be used to create a POSIXlt object.
 }

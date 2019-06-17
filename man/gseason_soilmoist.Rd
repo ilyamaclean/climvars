@@ -4,36 +4,40 @@
 \alias{gseason_soilmoist}
 \title{gseason_soilmoist: Growing season soil moisture content}
 \usage{
-gseason_soilmoist(startyear, endyear, ga, sm, msk, fo)
+gseason_soilmoist(startyear, endyear, gs, sm)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
 
 \item{endyear}{latest calender year to be considered in calculations.}
 
-\item{ga}{array of growing binary values indicating growing (1) or non-growing (0) season.}
+\item{gs}{array of growing binary values indicating growing (1) or non-growing (0) season for one year.}
 
 \item{sm}{array of soil moisture values for one year.}
 
-\item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
+\item{ga}{array of growing binary values indicating growing (1) or non-growing (0) season.}
 }
 \value{
-A raster object of growing season soil moisture values exported as .tif file.
+A matrix of mean growing season soil moisture values over specified years.
 }
 \description{
 \code{gseason_soilmoist} calculates the average soil moisture content during the growing season over specified years.
 }
-\details{
-Function has been designed to run with raster data of dimensions 73 x 144.
+\examples{
+require(microclima)
+tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")
+gs <- gseason_day(tme, 6, 21)
+gseason <- matrix(gs, dim=c(1, 1, 1460))
+soilm <- array(runif(1460, 0, 100), dim= c(1,1,1460))
+gseason_soilmoist(2010, 2010, gs, soilm)
+
 }
 \seealso{
-Requires function \code{gssm} to be loaded.
+Requires function \code{\link[=gssm]{gssm()}} to be loaded.
 
-the \code{gseason} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+the \code{\link[=gseason]{gseason()}} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 
-mtoraster.
+\code{\link[=mtoraster]{mtoraster()}}
 
-Requires that function 'gssm' is also loaded.
+Requires that function \code{\link[=gssm]{gssm()}} is also loaded.
 }

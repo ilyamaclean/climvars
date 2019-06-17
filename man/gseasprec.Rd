@@ -4,7 +4,7 @@
 \alias{gseasprec}
 \title{gseasonprecip: Total precipitation during the growing season}
 \usage{
-gseasprec(startyear, endyear, precip, gseason, msk, fo)
+gseasprec(startyear, endyear, precip, gseason)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
@@ -14,26 +14,19 @@ gseasprec(startyear, endyear, precip, gseason, msk, fo)
 \item{precip}{3-dimensional array of precipitation values.}
 
 \item{gseason}{3-dimensional array of values indicating growing season (1) or non-growing season (0).}
-
-\item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
 }
 \value{
-A raster object of values of total precipitation during the growing season exported as a .tif file.
+A matrix of mean total precipitation values during the growing season over the specified years.
 }
 \description{
 \code{gseasonprecip} calculates the total precipitation during the growing season.
-}
-\details{
-Function has been designed to run with raster data of dimensions 73 x 144.
 }
 \seealso{
 Requires function \code{gsp} to be loaded.
 
 the \code{gseason} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 
-nctoarray
+\code{\link[=mtoraster]{mtoraster()}} to convert output matrix to a raster.
 
-mtoraster
+\code{\link[=nctarray]{nctarray()}} to create an array from an nc file.
 }

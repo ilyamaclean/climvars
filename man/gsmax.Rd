@@ -25,5 +25,5 @@ gseason <- array(gs, dim=c(73, 144, 1460))
 maxgst <- gsmax(temp, gseason)
 }
 \seealso{
-the \code{gseason} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+the \code{\link[=gseason]{gseason()}} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 }

@@ -4,36 +4,29 @@
 \alias{gseastemp}
 \title{gseastemp: Mean temperature during the growing season}
 \usage{
-gseastemp(startyear, endyear, tempnc, gsnc, msk, fo)
+gseastemp(startyear, endyear, temp, gseason)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
 
 \item{endyear}{latest calender year to be considered in calculations.}
 
-\item{tempnc}{nc file containing temperature values for one year.}
+\item{temp}{array of temperature values for one year.}
 
-\item{gsnc}{nc file containing binary values indicating growing (1) or non-growing (0) season for one year.}
-
-\item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
+\item{gseason}{array of binary values indicating growing (1) or non-growing (0) season for one year.}
 }
 \value{
-A raster object of mean growing season temperature values exported as .tif file.
+A matrix of mean growing season temperature values over the specified years.
 }
 \description{
 \code{gseastemp} calculates the mean air temperature during the growing season over specified years.
 }
-\details{
-Function has been designed to run with raster data of dimensions 73 x 144.
-}
 \seealso{
-the \code{gseason} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
+the \code{\link[=gseason]{gseason()}} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 
-Requires function \code{gst} to be loaded.
+Requires function \code{\link[=gst]{gst()}} to be loaded.
 
-mtoraster
+\code{\link[=mtoraster]{mtoraster()}} to convert output matrix to a raster.
 
-nctarray
+\code{\link[=nctarray]{nctarray()}} to create an array from nc file.
 }

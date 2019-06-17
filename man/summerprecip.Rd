@@ -5,7 +5,7 @@
 \title{summerprecip: Total Summer precipitation}
 \usage{
 summerprecip(startyear, endyear, precipnc, startday = 152,
-  endday = 243, msk, fo)
+  endday = 243)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
@@ -17,13 +17,9 @@ summerprecip(startyear, endyear, precipnc, startday = 152,
 \item{startday}{assumed day of year of start of summer in northen hemisphere in non-leap year* (default 1st June).}
 
 \item{endday}{assumed day of year of end of summer in northen hemisphere in non-leap year* (default 31st Aug).}
-
-\item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'. Same extent as precipnc.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
 }
 \value{
-A raster object of growing degree days above 10 degrees Celcius during the growing season exported as a .tif file.
+A matrix of mean growing degree days above 10 degrees Celcius during the growing season over the specified years.
 }
 \description{
 \code{summerprecip} calculates the total amount of precipitation falling in summer.
@@ -34,9 +30,9 @@ Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+36
 in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
 }
 \seealso{
-Requires function \code{tsp} to be loaded.
+Requires function \code{\link[=tsp]{tsp()}} to be loaded.
 
-\code{nctoarray}
+\code{\link[=mtoraster]{mtoraster()}} to convert output matrix to a raster.
 
-\code{mtoraster}
+\code{\link[=nctarray]{nctarray()}} to create an array from an nc file.
 }

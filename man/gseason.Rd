@@ -6,7 +6,7 @@
 \usage{
 gseason(year, precipnc, evapnc, tempnc, period = "monthly",
   surplus = TRUE, lower = 5, upper = 35, nday = 1/24,
-  daynight = TRUE, merid = 0, msk = NA, dst = 0, fo1, fo2)
+  daynight = TRUE, merid = 0, dst = 0)
 }
 \arguments{
 \item{year}{calendar year.}
@@ -31,33 +31,25 @@ gseason(year, precipnc, evapnc, tempnc, period = "monthly",
 
 \item{merid}{an optional numeric value representing the longitude (decimal degrees) of the local time zone meridian (0 for GMT). Default is 0.}
 
-\item{msk}{optional land/sea mask raster object with sea areas assigned 'NA' and land areas assigned value '1'.}
-
 \item{dst}{an optional numeric value representing the time difference from the timezone meridian (hours, e.g. +1 for BST if merid = 0). Default is 0.}
-
-\item{fo1}{character string indicating the name and file path of the .tif file to be saved.}
-
-\item{fo2}{character string indicating the name and file path of the .nc file to be saved.}
 }
 \value{
-a .tif file of growing season length and a .nc file containing a three dimensional array of binary values indicating growing conditions (1) = yes, (0) = no.
+a three dimensional array of binary values indicating growing conditions (1) = yes, (0) = no.
 }
 \description{
-Calculates total annual growing hours where temperatures are within defined upper and lower limits and precipitation exceeds half potential evapotranspiration.
+\code{gseason} calculates total annual growing hours where temperatures are within defined upper and lower limits and precipitation exceeds half potential evapotranspiration.
 }
 \details{
 The growing season period is defined as the period where temperatures are >5 degree Celcius and <35 degree Celcius and precipitation > 0.5 PET.
 }
 \seealso{
-\code{gseason_prec} calculates period where precipitation exceeds half evapotranspiration.
+\code{\link[=gseason_prec]{gseason_prec()}} calculates period where precipitation exceeds half evapotranspiration.
 
-\code{gseason_temp} calculates period where temperature are above lower limit for plant growth and below upper limit for plant growth.
+\code{\link[=gseason_temp]{gseason_temp()}} calculates period where temperature are above lower limit for plant growth and below upper limit for plant growth.
 
-\code{gseason_day} calculates day/night time.
+\code{\link[=gseason_day]{gseason_day()}} calculates day/night time.
 
-\code{tmecreate} can be used to create a POSIXlt object.
+\code{\link[=tmecreate]{tmecreate()}} can be used to create a POSIXlt object.
 
-\code{nctoarray} creates an array containing data within an nc file
-
-\code{mtoraster} converts matrix to raster object
+\code{\link[=nctoarray]{nctoarray()}} can be used to create an nc file from array output.
 }

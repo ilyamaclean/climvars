@@ -4,34 +4,27 @@
 \alias{maxgstemp}
 \title{maxgstemp: Maximum temperature during the growing season}
 \usage{
-maxgstemp(startyear, endyear, tempnc, gsnc, msk, fo)
+maxgstemp(startyear, endyear, temp, gs)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}
 
 \item{endyear}{latest calender year to be considered in calculations.}
 
-\item{tempnc}{nc file containing temperature values for one year.}
+\item{temp}{a three-dimensional array of temperature values for one year.}
 
-\item{gsnc}{nc file containing binary values indicating growing (1) or non-growing (0) season for one year.}
-
-\item{msk}{Optional raster object of land-sea mask with sea areas assigned 'NA' and land areas assigned value '1'.}
-
-\item{fo}{character string indicating the name and file path for the .tif file to be saved.}
+\item{gs}{a three-dimensional array of binary values indicating growing (1) or non-growing (0) season for one year.}
 }
 \value{
-A raster object of values of maximum growing season air temperature values exported as a .tif file.
+A matrix of mean maximum growing season air temperature values over the specified years.
 }
 \description{
 Calculates the maximum air temperature during the growing season across specified years.
 }
-\details{
-Function has been designed to run with raster data of dimensions 73 x 144.
-}
 \seealso{
-\code{mtoraster} to convert a matrix to a raster object.
+\code{\link[=mtoraster]{mtoraster()}} to convert a matrix to a raster object.
 
-\code{nctoarray} to create an array of growing season values from an nc file.
+\code{\link[=nctarray]{nctarray()}} to create array of temperature values from an nc file.
 
-Requires function \code{gsmax} to be loaded.
+Requires function \code{\link[=gsmax]{gsmax()}} to be loaded.
 }
