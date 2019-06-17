@@ -21,6 +21,9 @@ A matrix of mean growing season temperature values over the specified years.
 \description{
 \code{gseastemp} calculates the mean air temperature during the growing season over specified years.
 }
+\details{
+details to be added
+}
 \seealso{
 the \code{\link[=gseason]{gseason()}} function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
 

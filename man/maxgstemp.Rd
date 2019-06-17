@@ -21,6 +21,9 @@ A matrix of mean maximum growing season air temperature values over the specifie
 \description{
 Calculates the maximum air temperature during the growing season across specified years.
 }
+\details{
+some details needed here
+}
 \seealso{
 \code{\link[=mtoraster]{mtoraster()}} to convert a matrix to a raster object.
 

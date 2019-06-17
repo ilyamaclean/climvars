@@ -21,6 +21,9 @@ A matrix of mean total precipitation values during the growing season over the s
 \description{
 \code{gseasonprecip} calculates the total precipitation during the growing season.
 }
+\details{
+details to be added
+}
 \seealso{
 Requires function \code{gsp} to be loaded.
 

@@ -957,7 +957,7 @@ bio16 <- function(prec, tme, method = "") {
     else {
       if (length(unique(tme$year)) > 1) warnb()
       qtr <- function(i, int) {
-        pw <- c(temps, temps)
+        pw <- c(prec, prec)
         su <- sum(pw[i: (i + int)], na.rm = TRUE)
         su
       }
